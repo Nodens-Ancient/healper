@@ -3,6 +3,7 @@ package bot;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 import parcel.Parcel;
 import utils.PropertyController;
 
@@ -14,20 +15,33 @@ public class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         String message = update.getMessage().getText();
         try {
-            sendMsg(update.getMessage().getChatId().toString(),
-                    new Parcel().getParcelInfo(PropertyController.getValue(message)));
-        } catch (IOException e) {
+            try {
+                PropertyController.getValueByKey(message);
+                sendMsg(update.getMessage().getChatId().toString(),
+                        new Parcel().getParcelInfo(PropertyController.getValueByKey(message)));
+            } catch (Exception e) {
+                sendKeyboard(update.getMessage().getChatId().toString(), "|_-_|");
+            }
+
+
+
+        } catch (IOException | TelegramApiException e) {
             e.printStackTrace();
         }
     }
 
+    private synchronized void sendKeyboard(String chatId, String s) throws TelegramApiException, IOException {
+        execute(new SendMessage()
+                .enableMarkdown(true)
+                .setChatId(chatId)
+                .setText(s).setReplyMarkup(new Buttons().setParcelButtons()));
+    }
 
-    private synchronized void sendMsg(String chatId, String s) {
-        new Buttons().setButtons(new SendMessage()
+    private synchronized void sendMsg(String chatId, String s) throws TelegramApiException {
+        execute(new SendMessage()
                 .enableMarkdown(true)
                 .setChatId(chatId)
                 .setText(s));
-//        execute();
 
     }
 

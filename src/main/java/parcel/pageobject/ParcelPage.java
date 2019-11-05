@@ -22,6 +22,7 @@ public class ParcelPage {
         String[] linesOfResult = driver.findElement(By.xpath("//*[@id=\"GridInfo0\"]/tbody"))
                 .getText()
                 .split("\n");
+        driver.close();
         return linesOfResult[linesOfResult.length - 1];
     }
 
