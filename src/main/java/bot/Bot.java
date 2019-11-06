@@ -1,5 +1,6 @@
 package bot;
 
+import message.MessageFactory;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -16,7 +17,6 @@ public class Bot extends TelegramLongPollingBot {
         String message = update.getMessage().getText();
         try {
             try {
-                PropertyController.getValueByKey(message);
                 sendMsg(update.getMessage().getChatId().toString(),
                         new Parcel().getParcelInfo(PropertyController.getValueByKey(message)));
             } catch (Exception e) {

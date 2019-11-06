@@ -22,4 +22,18 @@ public class PropertyController {
         prop.load(input);
         return prop.stringPropertyNames();
     }
+
+    public static void deleteByKey(String key) throws IOException {
+        InputStream input = new FileInputStream("src/main/resources/parcels.properties");
+        Properties prop = new Properties();
+        prop.load(input);
+        prop.remove(key);
+    }
+
+    public static void addKeyAndValue(String key, String value) throws IOException {
+        InputStream input = new FileInputStream("src/main/resources/parcels.properties");
+        Properties prop = new Properties();
+        prop.load(input);
+        prop.setProperty(key, value);
+    }
 }
