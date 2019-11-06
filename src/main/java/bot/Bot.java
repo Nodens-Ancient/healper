@@ -6,6 +6,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import parcel.Parcel;
+import parcel.pageobject.ParcelPage;
 import utils.PropertyController;
 
 import java.io.IOException;
@@ -14,16 +15,8 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        String message = update.getMessage().getText();
         try {
-            try {
-                sendMsg(update.getMessage().getChatId().toString(),
-                        new Parcel().getParcelInfo(PropertyController.getValueByKey(message)));
-            } catch (Exception e) {
-                sendKeyboard(update.getMessage().getChatId().toString(), "|_-_|");
-            }
-
-
+            execute(new MessageFactory(update.getMessage()).getMessageType());
 
         } catch (IOException | TelegramApiException e) {
             e.printStackTrace();
