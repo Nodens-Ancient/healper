@@ -17,8 +17,7 @@ public class Browser {
     }
     public WebDriver getBrowser() {
         WebDriverManager.chromedriver().setup();
-        new ChromeOptions().addArguments("headless");
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver(new ChromeOptions().addArguments("headless"));
         driver.manage()
                 .timeouts()
                 .implicitlyWait(10, TimeUnit.SECONDS);
