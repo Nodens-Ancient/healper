@@ -2,13 +2,11 @@ package parcel.pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.ErrorHandler;
 
 public class ParcelPage {
-    WebDriver driver;
+    private WebDriver driver;
     public ParcelPage(WebDriver driver) {
         this.driver = driver;
-        driver.get("https://webservices.belpost.by/searchRu.aspx");
     }
 
 
@@ -26,8 +24,6 @@ public class ParcelPage {
         } catch (Exception e) {
             return "По данному отправлению ничего не найдено";
         }
-
-        System.out.println(text);
         String[] linesOfResult = text
                 .split("\n");
         return linesOfResult[linesOfResult.length - 1];

@@ -1,4 +1,4 @@
-package message;
+package message.commands;
 
 import bot.Buttons;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -7,16 +7,16 @@ import utils.PropertyController;
 
 import java.io.IOException;
 
-public class Command {
-    Message message;
-
-    public Command(Message message) {
+class ParcelCommands {
+    private Message message;
+    ParcelCommands(Message message) {
         this.message = message;
     }
 
-    public SendMessage getAnswer() throws IOException {
+
+    SendMessage getAnswer() throws IOException {
         String[] commandParts = message.getText()
-                .replaceAll("[/]", "")
+                .replaceAll("/parcels_", "")
                 .split("_");
         switch (commandParts.length) {
             case 2:
@@ -25,17 +25,17 @@ public class Command {
                     return new SendMessage()
                             .enableMarkdown(true)
                             .setChatId(message.getChatId())
-                            .setText("deleted").setReplyMarkup(new Buttons().setParcelButtons());
+                            .setText("deleted").setReplyMarkup(new Buttons().getParcelKeyboard());
                 } else {
                     return null;
                 }
             case 3:
-                if (commandParts[0].equals("mv")) {
+                if (commandParts[0].equals("add")) {
                     PropertyController.addKeyAndValue(commandParts[1], commandParts[2]);
                     return new SendMessage()
                             .enableMarkdown(true)
                             .setChatId(message.getChatId())
-                            .setText("added").setReplyMarkup(new Buttons().setParcelButtons());
+                            .setText("added").setReplyMarkup(new Buttons().getParcelKeyboard());
 
                 } else {
                     return null;
@@ -44,10 +44,8 @@ public class Command {
                 return new SendMessage()
                         .enableMarkdown(true)
                         .setChatId(message.getChatId())
-                        .setText("nothing to do").setReplyMarkup(new Buttons().setParcelButtons());
+                        .setText("nothing to do").setReplyMarkup(new Buttons().getParcelKeyboard());
 
         }
     }
-
 }
-

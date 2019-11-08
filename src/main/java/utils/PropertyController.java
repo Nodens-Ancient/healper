@@ -41,18 +41,21 @@ public class PropertyController {
 
     //    airpods=LB091514878SG;
 //    nika=UM038922945JE;
-    public static void main(String[] args) throws IOException {
-        addKeyAndValue("nika", "UM038922945JE");
-        addKeyAndValue("nik", "UM038922945J");
-    }
     public static void addKeyAndValue(String key, String value) throws IOException {
-        FileOutputStream out = new FileOutputStream(file);
         InputStream input = new FileInputStream(file);
-        Properties prop = new Properties();
-        prop.load(input);
-        prop.put(key, value);
-        prop.store(out, "");
-        out.close();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String name : getNames()) {
+            if(!name.equals(key)){
+                stringBuilder.append(name).append("=").append(getValueByKey(name)).append('\n');
+            }
+        }
+        FileWriter writer = new FileWriter(file);
+        stringBuilder.append(key).append("=").append(value).append('\n');
+        writer.write(stringBuilder.toString());
+        writer.flush();
+        writer.close();
         input.close();
+
     }
 }

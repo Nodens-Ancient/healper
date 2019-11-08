@@ -1,15 +1,14 @@
 package parcel;
 
 import browser.Browser;
-import org.openqa.selenium.WebDriver;
 import parcel.pageobject.ParcelPage;
 
 public class Parcel {
-    WebDriver driver;
-    ParcelPage parcelPage;
+    private ParcelPage parcelPage;
     public Parcel() {
-        driver = new Browser().getBrowser();
-        parcelPage = new ParcelPage(driver);
+        parcelPage = new ParcelPage(
+                new Browser("https://webservices.belpost.by/searchRu.aspx")
+                        .getBrowser());
     }
 
     public String getParcelInfo(String codeOfParcel) {

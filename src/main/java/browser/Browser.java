@@ -8,15 +8,23 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
-    private WebDriver driver;
+    private String ref;
+    public Browser(String ref){
+        this.ref = ref;
+    }
+    public Browser(){
 
+    }
     public WebDriver getBrowser() {
         WebDriverManager.chromedriver().setup();
         new ChromeOptions().addArguments("headless");
-        driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
         driver.manage()
                 .timeouts()
                 .implicitlyWait(10, TimeUnit.SECONDS);
-       return driver;
+        if (ref != null){
+            driver.get(ref);
+        }
+        return driver;
     }
 }
