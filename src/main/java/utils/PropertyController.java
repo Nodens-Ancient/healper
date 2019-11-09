@@ -1,5 +1,6 @@
 package utils;
 
+
 import java.io.*;
 import java.util.Properties;
 import java.util.Scanner;
@@ -56,6 +57,5 @@ public class PropertyController {
         writer.flush();
         writer.close();
         input.close();
-
     }
 }

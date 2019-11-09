@@ -17,14 +17,27 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>bot.BotCreator</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
-    <dependency>
-        <groupId>org.telegram</groupId>
-        <artifactId>telegrambots</artifactId>
-        <version>3.5</version>
-    </dependency>
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>3.5</version>
+        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -34,12 +47,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
             <version>3.141.59</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-api</artifactId>
-            <version>3.141.59</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>

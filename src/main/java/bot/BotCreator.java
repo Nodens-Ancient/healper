@@ -2,7 +2,7 @@ package bot;
 
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+
 
 public class BotCreator {
     public static void main(String[] args) {
@@ -10,7 +10,7 @@ public class BotCreator {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
             telegramBotsApi.registerBot(new Bot());
-        } catch (TelegramApiRequestException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
