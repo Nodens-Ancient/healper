@@ -21,7 +21,7 @@ public class MessageFactory {
             case"Menu": case"Main menu": case"Main":
             case"Parcels": case"RailWay": case"/parcels":
                 return new Command(message).getAnswer();
-            case "В МИХАНОВИЧИ": case "В МИНСК":
+            case "IN MIKHANOVICHI": case "IN MINSK":
                 return new Request(message).getAnswerForRailway();
             default:
                 return new Request(message).getAnswerForParcel();

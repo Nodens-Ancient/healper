@@ -16,6 +16,7 @@ public class Browser {
 
     }
     public WebDriver getBrowser() {
+        
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver(new ChromeOptions().addArguments("headless"));
         driver.manage()

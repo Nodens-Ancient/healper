@@ -22,7 +22,7 @@ public class Buttons {
     }
 
     public ReplyKeyboardMarkup getRailwayKeyboard() {
-        List<KeyboardRow> buttons = createButtons(new String[]{"В МИХАНОВИЧИ", "В МИНСК"});
+        List<KeyboardRow> buttons = createButtons(new String[]{"IN MIKHANOVICHI", "IN MINSK"});
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         keyboardFirstRow.add(new KeyboardButton("Main menu"));
         buttons.add(keyboardFirstRow);

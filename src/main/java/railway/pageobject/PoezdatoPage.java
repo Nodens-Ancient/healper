@@ -22,7 +22,7 @@ public class PoezdatoPage {
     }
 
     private String generateLink() {
-        if (stream.equals("В МИХАНОВИЧИ")){
+        if (stream.equals("IN MIKHANOVICHI")){
             return  "http://poezdato.net/raspisanie-poezdov/minsk--mihanovichi/"
                     + date.replaceAll("/.+", "/");
         } else {

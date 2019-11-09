@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class PropertyController {
-    private static File file = new File("src/main/resources/parcels.properties");
+    private static File file = new File("/property/parcels.properties");
     public static String getValueByKey(String key) throws IOException {
         InputStream input = new FileInputStream(file);
         Properties prop = new Properties();
