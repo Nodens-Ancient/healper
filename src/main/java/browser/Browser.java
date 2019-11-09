@@ -16,9 +16,11 @@ public class Browser {
 
     }
     public WebDriver getBrowser() {
-        
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setBinary("/usr/bin/chromium-browser");
+//        chromeOptions.addArguments("--headless");
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(new ChromeOptions().addArguments("headless"));
+        WebDriver driver = new ChromeDriver(chromeOptions);
         driver.manage()
                 .timeouts()
                 .implicitlyWait(10, TimeUnit.SECONDS);
