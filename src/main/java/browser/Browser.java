@@ -16,11 +16,12 @@ public class Browser {
 
     }
     public WebDriver getBrowser() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setBinary("/usr/bin/chromium-browser");
-//        chromeOptions.addArguments("--headless");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(chromeOptions);
+        ChromeOptions options = new ChromeOptions().setHeadless(true);
+        options.setBinary("/Volumes/myMac/Applications/Chromium.app/Contents/MacOS/Chromium");
+//      System.setProperty("webdriver.chrome.driver", "chromedriver");
+        WebDriver driver = new ChromeDriver(options);
+
+        driver.get("https://www.google.com/");
         driver.manage()
                 .timeouts()
                 .implicitlyWait(10, TimeUnit.SECONDS);
