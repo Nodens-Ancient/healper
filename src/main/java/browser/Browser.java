@@ -17,11 +17,9 @@ public class Browser {
     }
     public WebDriver getBrowser() {
         ChromeOptions options = new ChromeOptions().setHeadless(true);
-        options.setBinary("/Volumes/myMac/Applications/Chromium.app/Contents/MacOS/Chromium");
+        options.setBinary("/usr/bin/chromium");
 //      System.setProperty("webdriver.chrome.driver", "chromedriver");
         WebDriver driver = new ChromeDriver(options);
-
-        driver.get("https://www.google.com/");
         driver.manage()
                 .timeouts()
                 .implicitlyWait(10, TimeUnit.SECONDS);
