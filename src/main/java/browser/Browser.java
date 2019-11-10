@@ -18,7 +18,7 @@ public class Browser {
     public WebDriver getBrowser() {
         ChromeOptions options = new ChromeOptions().setHeadless(true);
         options.setBinary("/usr/bin/chromium");
-//      System.setProperty("webdriver.chrome.driver", "chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromium-chromedriver_76.0.3809.100-0ubuntu0.16.04.1_armhf.deb");
         WebDriver driver = new ChromeDriver(options);
         driver.manage()
                 .timeouts()
