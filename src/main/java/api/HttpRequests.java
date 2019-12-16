@@ -11,7 +11,7 @@ public interface HttpRequests {
     default String request(String body) {
         String line = null;
         try {
-            URL url = new URL(body + PropertyController.getValueByKey("key"));
+            URL url = new URL(body + System.getenv("keyAPI"));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
