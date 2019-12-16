@@ -1,20 +1,28 @@
 package bot;
 
-import message.MessageFactory;
+import bot.message.commands.Command;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
-
-import java.io.IOException;
 
 public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            execute(new MessageFactory(update.getMessage()).getMessageType());
+            execute(new Command(update).getAnswer());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 
-        } catch (IOException | TelegramApiException e) {
+    public void sendMeMessage(String chatId, String message) {
+        try {
+            execute(new SendMessage().setChatId(chatId).setText(message));
+        } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }

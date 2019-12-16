@@ -7,12 +7,19 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class PropertyController {
-    private static File file = new File("src/main/resources/parcels.properties");
-    public static String getValueByKey(String key) throws IOException {
-        InputStream input = new FileInputStream(file);
+    private static File file = new File("parcels.properties");
+    public static String getValueByKey(String key) {
+
+        InputStream input;
         Properties prop = new Properties();
-        prop.load(input);
-        input.close();
+        try {
+            input = new FileInputStream(file);
+            prop.load(input);
+            input.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return prop.getProperty(key);
     }
 
