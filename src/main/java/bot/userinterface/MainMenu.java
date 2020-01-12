@@ -17,7 +17,8 @@ public class MainMenu extends BaseInterface {
             "INVENTORY", emojiInventory);
     private static Button removeAll = new Button("CLEAR SELLING LIST",
             "CLEAR_SELLING_LIST", clearEmoji);
-
+    private static Button itemsOnSale = new Button("ITEMS ON SALE",
+            "SELL_LIST", listEmoji);
     public InlineKeyboardMarkup getMenu() {
         return new InlineKeyboardMarkup()
                 .setKeyboard(createButtons(new Button[][]{
@@ -25,6 +26,7 @@ public class MainMenu extends BaseInterface {
                         {turnOn, turnOff},
                         {inventory},
                         {sellItem},
+                        {itemsOnSale},
                         {removeAll}
                 }));
     }

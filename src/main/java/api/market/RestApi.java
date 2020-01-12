@@ -1,51 +1,34 @@
 package api.market;
 
-import api.HttpRequests;
-import models.InventoryItem;
-import models.interfaces.JsonParser;
+import api.market.enums.RequestEnums;
+import framework.api.JsonApi;
+import framework.utils.ModelGenerator;
+import models.apiModel.*;
 
-import java.util.ArrayList;
+public class RestApi {
+    private String token;
 
-public class RestApi implements HttpRequests, JsonParser {
-
-    public String getBalance() {
-        return String.valueOf(Double.parseDouble(
-                request("https://market.csgo.com/api/GetMoney/?key=")
-                        .replaceAll("[^0-9]", ""))/100);
+    public RestApi(String token) {
+        this.token = token;
     }
 
-    public  void goOnline() {
-        request("https://market.csgo.com/api/PingPong/?key=");
+    public <T> T getResult(RequestEnums link, Class<T> clazz) {
+        return ModelGenerator.getModelByMappingWithKey(link,token, clazz);
     }
 
-    public  void goOffLine() {
-        request("https://market.csgo.com/api/GoOffline/?key=");
+    public void execute(RequestEnums link) {
+        new JsonApi(link+token).executeRequest();
     }
 
-    public  String setPrice(String inventoryClass, String price) {
-        return request(String.format("https://market.csgo.com/api/SetPrice/%s/%s/?key=",
-                inventoryClass, price));
+    public String getLowestPrice(ItemFromInventoryModel item) {
+        String url = String.format("https://market.csgo.com/api/BestSellOffer/%s_%s/?key=",
+                item.getClassId(), item.getInstanceId());
+        return new JsonApi(url+token).executeRequest().asString().replaceAll("[^\\d]", "");
     }
 
-    public String getTradeStatus() {
-        return request("https://market.csgo.com/api/MarketTrades/?key=");
-    }
-
-    public ArrayList<InventoryItem> getInventory() {
-        ArrayList<InventoryItem> result = new ArrayList<>();
-        for (String id : getIdList(request("https://market.csgo.com/api/GetInv/?key="))) {
-            result.add(new InventoryItem(id));
-        }
-        return result;
-    }
-
-    public void deleteAllSales() {
-        request("https://market.csgo.com/api/RemoveAll/?key=");
-    }
-
-    public String getLowestPrice(String classId, String instanceId) {
-        return getParameter(request(String
-                .format("https://market.csgo.com/api/BestSellOffer/%s_%s/?key=", classId, instanceId))
-                , "best_offer");
+    public void setPrice(String params) {
+        String[] paramsArr = params.split("_");
+        new JsonApi(String.format("https://market.csgo.com/api/SetPrice/%s/%d/?key=",
+                paramsArr[0], Integer.valueOf(paramsArr[1]) - 1)).executeRequest();
     }
 }

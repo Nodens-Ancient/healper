@@ -1,8 +1,7 @@
 package bot;
 
-import bot.message.commands.Command;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
+import api.market.Threads.TradeControllerSingleton;
+import bot.message.AnswerController;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -13,10 +12,21 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            execute(new Command(update).getAnswer());
+            execute(new AnswerController(update).getAnswer());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        TradeControllerSingleton.startThread();
+    }
+
+    @Override
+    public String getBotUsername() {
+        return "Ofgkta_bot";
+    }
+
+    @Override
+    public String getBotToken() {
+        return "831206675:AAEhe93MAkyW3xw2TBKIE08zKIhb4wDeJII";
     }
 
     public void sendMeMessage(String chatId, String message) {
@@ -25,16 +35,5 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public String getBotUsername() {
-        return System.getenv("name");
-    }
-
-
-    @Override
-    public String getBotToken() {
-        return  System.getenv("keyBot");
     }
 }

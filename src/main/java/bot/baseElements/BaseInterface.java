@@ -21,6 +21,18 @@ public class BaseInterface implements EmojInterface {
         return rowList;
     }
 
+    protected List<List<InlineKeyboardButton>> createButtons(ArrayList<Button> buttons) {
+        List<List<InlineKeyboardButton>> rowList= new ArrayList<>();
+        for (Button button : buttons) {
+            List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
+
+            keyboardButtonsRow1.add(button.getButton());
+
+            rowList.add(keyboardButtonsRow1);
+        }
+        return rowList;
+    }
+
 
 //    KeyboardRow keyboardFirstRow = new KeyboardRow();
 //            new KeyboardButton((String) name)
