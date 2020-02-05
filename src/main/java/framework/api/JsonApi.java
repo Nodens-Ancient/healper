@@ -7,28 +7,28 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import models.interfaces.EmojInterface;
 
-import java.util.Arrays;
-
 public class JsonApi implements EmojInterface {
     private String url;
     private TypeOfConnection type = TypeOfConnection.GET;
     private RequestSpecification request = RestAssured.given();
 
     public JsonApi(String url) {
-        this.url = url + KEY;
+        this.url = url;
     }
 
     public Response executeRequest() {
         request.header("Content-Type", "application/json");
         switch (type) {
             case GET:
-                return request.get(url);
+                Response response = request.get(url);
+                System.out.println(url);
+                System.out.println(response.asString());
+
+                return response;
             case POST:
                 return request.post(url);
             default:
-                EnumConstantNotPresentException enumConstantNotPresentException
-                        = new EnumConstantNotPresentException(TypesOfSort.class, type.toString());
-                throw enumConstantNotPresentException;
+                throw new EnumConstantNotPresentException(TypesOfSort.class, type.toString());
         }
     }
 

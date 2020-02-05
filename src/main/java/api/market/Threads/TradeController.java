@@ -6,10 +6,14 @@ import lombok.SneakyThrows;
 import models.apiModel.ItemOnSell;
 import models.users.UserModel;
 import subscribe.UserSubscribeControl;
-
 import java.util.Arrays;
 
 public class TradeController extends Thread {
+    private Bot bot;
+
+    TradeController(Bot bot) {
+        this.bot = bot;
+    }
 
     @SneakyThrows
     @Override
@@ -18,15 +22,17 @@ public class TradeController extends Thread {
             for (UserModel user : UserSubscribeControl.getUsers()) {
                 CsGoMarket csGoMarket = new CsGoMarket(user);
                 ItemOnSell[] itemsOnSelle = csGoMarket.getIteemsOnSell();
-                if (!(itemsOnSelle == null)) {
+                if(itemsOnSelle != null) {
                     if (Arrays.stream(itemsOnSelle).anyMatch(item -> item.getUiStatus() == 2)) {
                         csGoMarket.createTradeOffer();
-                        new Bot().sendMeMessage("301289177", "\uD83D\uDC6F CHECK STEAM \uD83D\uDC6F");
+                        bot.sendMeMessage(user.getId(), "\uD83D\uDC6F DEAR "
+                                + user.getName() + " CHECK STEAM \uD83D\uDC6F");
                     } else if (TradeControllerSingleton.switcher) {
                         csGoMarket.setOnline();
+                        System.out.println("THREAD IS OK");
                     }
+                    sleep(60000);
                 }
-                sleep(60000);
             }
         }
     }

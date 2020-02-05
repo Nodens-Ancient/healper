@@ -4,11 +4,15 @@ import api.market.Threads.TradeControllerSingleton;
 import bot.userinterface.InventoryMenu;
 import bot.userinterface.ItemOnSellMenu;
 import bot.userinterface.MainMenu;
+import models.apiModel.InventoryModel;
+import models.apiModel.ItemFromInventoryModel;
 import models.interfaces.EmojInterface;
 import models.users.UserModel;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import subscribe.UserSubscribeControl;
+
+import java.util.ArrayList;
 
 public class BotCommands implements EmojInterface {
     private UserModel user;
@@ -48,10 +52,12 @@ public class BotCommands implements EmojInterface {
     }
 
     protected SendMessage getSellItemMenu() {
+        InventoryModel inventory = csGoMarket.getInventory();
         return new SendMessage()
                 .setChatId(user.getId())
                 .setText(EmojInterface.getTextWithEmojieSurround("CHOSE", emojiInventory))
-                .setReplyMarkup(new InventoryMenu().getMenu(csGoMarket.getInventory()));
+
+                .setReplyMarkup(new InventoryMenu().getMenu(inventory));
     }
 
     protected SendMessage getMessageOfSell(String params) {

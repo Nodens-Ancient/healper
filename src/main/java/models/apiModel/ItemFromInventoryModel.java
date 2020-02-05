@@ -23,9 +23,11 @@ public class ItemFromInventoryModel {
     private String instanceId;
     private String price;
 
-    public String updatePrice(CsGoMarket csGoMarket) {
-        return csGoMarket.getPriceOfItem(this);
+    void updatePrice(CsGoMarket csGoMarket) {
+        price = csGoMarket.getPriceOfItem(this);
     }
+
+
 
     public boolean isStatTrack() {
         return market_hash_name.contains("StatTrak™");

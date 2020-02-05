@@ -19,8 +19,8 @@ public class InventoryMenu extends BaseInterface {
                     result.add(new Button(EmojInterface.getTextWithEmojieSurround(String.format("%.20s |%s%5.2fRUB",
                             item.getName().replaceAll("\\(.+", ""), priceEmoji,
                             Double.parseDouble(item.getPrice()) / 100), emojiSellAll),
-                            String.format("SELL@%s_%s", item.getUi_id(), item.getPrice())));
-                } catch (NullPointerException e) {
+                            String.format("SELL@%s|%s", item.getUi_id(), item.getPrice())));
+                } catch (Exception e) {
                     result.add(new Button(EmojInterface.getTextWithEmojieSurround(
                             item.getName(), stopEmoji), "INVENTORY"));
                 }

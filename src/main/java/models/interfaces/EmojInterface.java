@@ -14,7 +14,6 @@ public interface EmojInterface {
     String listEmoji = "\uD83D\uDCDC";
     String pinEmoji = "\uD83D\uDCCC";
     String flagEmoji = "\u26f3";
-    String KEY ="6s33CWw01p5XQS2Shol326cvCqbcVd5";
 
     static String getTextWithEmojieSurround(String text, String emoji) {
         return String.format("%s %s %s", emoji, text, emoji);

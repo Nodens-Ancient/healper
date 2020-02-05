@@ -23,12 +23,13 @@ public class RestApi {
     public String getLowestPrice(ItemFromInventoryModel item) {
         String url = String.format("https://market.csgo.com/api/BestSellOffer/%s_%s/?key=",
                 item.getClassId(), item.getInstanceId());
-        return new JsonApi(url+token).executeRequest().asString().replaceAll("[^\\d]", "");
+        return new JsonApi(url + token).executeRequest().asString().replaceAll("[^\\d]", "");
     }
 
     public void setPrice(String params) {
-        String[] paramsArr = params.split("_");
-        new JsonApi(String.format("https://market.csgo.com/api/SetPrice/%s/%d/?key=",
-                paramsArr[0], Integer.valueOf(paramsArr[1]) - 1)).executeRequest();
+        String[] paramsArr = params.split("\\|");
+        String url = String.format("https://market.csgo.com/api/SetPrice/%s/%d/?key=",
+                paramsArr[0], Integer.valueOf(paramsArr[1]) - 1);
+        new JsonApi(url + token).executeRequest();
     }
 }

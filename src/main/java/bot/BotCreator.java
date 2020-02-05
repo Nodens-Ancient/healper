@@ -1,15 +1,18 @@
 package bot;
 
+import api.market.Threads.TradeControllerSingleton;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 
-public class BotCreator {
+class BotCreator {
 
-    public BotCreator() {
+    BotCreator() {
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
-            telegramBotsApi.registerBot(new Bot());
+            Bot bot = new Bot();
+            telegramBotsApi.registerBot(bot);
+            TradeControllerSingleton.startThread(bot);
         } catch (Exception e) {
             e.printStackTrace();
         }

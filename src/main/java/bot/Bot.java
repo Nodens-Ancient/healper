@@ -1,6 +1,5 @@
 package bot;
 
-import api.market.Threads.TradeControllerSingleton;
 import bot.message.AnswerController;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
@@ -16,7 +15,7 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        TradeControllerSingleton.startThread();
+
     }
 
     @Override
