@@ -4,10 +4,9 @@ import api.market.enums.RequestEnums;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import framework.api.JsonApi;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
+
 import java.io.File;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class ModelGenerator {
